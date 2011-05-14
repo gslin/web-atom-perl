@@ -30,9 +30,9 @@ sub _build_body {
 
     my $res = $ua->get($self->url);
     if ('' eq $self->url_encoding) {
-	return encode('utf8', $res->decoded_content);
+        return encode('utf8', $res->decoded_content);
     } else {
-	return encode('utf8', decode($self->url_encoding, $res->content));
+        return encode('utf8', decode($self->url_encoding, $res->content));
     }
 }
 

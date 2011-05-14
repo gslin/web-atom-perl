@@ -51,28 +51,28 @@ sub _build_feed {
     $feed->title($plugin->title);
 
     foreach my $e (@{$plugin->entries}) {
-	my $entry = XML::Atom::Entry->new(Version => 1.0);
+        my $entry = XML::Atom::Entry->new(Version => 1.0);
 
-	if (defined $entry->author) {
-	    my $entryAuthor = XML::Atom::Author->new(Version => 1.0);
-	    $entryAuthor->email($e->author_email);
-	    $entryAuthor->name($e->author_name);
-	    $entry->author($entryAuthor);
-	} else {
-	    $entry->author($author);
-	}
+        if (defined $entry->author) {
+            my $entryAuthor = XML::Atom::Author->new(Version => 1.0);
+            $entryAuthor->email($e->author_email);
+            $entryAuthor->name($e->author_name);
+            $entry->author($entryAuthor);
+        } else {
+            $entry->author($author);
+        }
 
-	$entry->id($e->id);
-	$entry->content($e->content);
-	$entry->title($e->title);
+        $entry->id($e->id);
+        $entry->content($e->content);
+        $entry->title($e->title);
 
-	my $link = XML::Atom::Link->new(Version => 1.0);
-	$link->type('text/html');
-	$link->rel('alternate');
-	$link->href($e->url);
-	$entry->add_link($link);
+        my $link = XML::Atom::Link->new(Version => 1.0);
+        $link->type('text/html');
+        $link->rel('alternate');
+        $link->href($e->url);
+        $entry->add_link($link);
 
-	$feed->add_entry($entry);
+        $feed->add_entry($entry);
     }
 
     return $feed;
